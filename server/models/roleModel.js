@@ -5,4 +5,4 @@ const roles = new Schema({
     value:{type:String, unique:true, default:"USER"}
 })
 
-module.exports = model('Role', roles)
+module.exports = model('ROLE', roles)

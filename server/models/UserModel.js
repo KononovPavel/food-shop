@@ -21,7 +21,8 @@ const user = new Schema({
     ordersComplete: [{type: ObjectId, ref: "ORDER"}],
     //корзина заказов пользователя (не администратора)
     card: [{type: ObjectId, ref: "ORDER"}],
-    role:{type:ObjectId, ref:'Role'},
+    //роли пользователя строка, так как одно поле которое стринг
+    role:{type:String, ref:'ROLE'},
 })
 //создаем модель пользователя, используя метод model из mongoose
 //первый параметр, это то, как модель будет называться в бд, второй - наш объект
