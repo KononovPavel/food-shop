@@ -46,7 +46,7 @@ class AuthController {
             const userRole = await RoleByModel.findOne({value: "USER"})
             const user = new UserByModel({firstName:firstName, lastName:lastName, email:email, password: hashPassword , address:address ,role:userRole.value})
             await user.save();
-            return res.json({message: "Вы успешно зарегистрировались"})
+            return res.json({message: "Вы успешно зарегистрировались", statusCode: 1})
         } catch (e) {
             console.log(e)
             res.status(400).json({message: "Ошибка регистрации в catch"})
@@ -54,26 +54,45 @@ class AuthController {
     }
 
     async login(req, res) {
+        /**
+         * получаем данные из формы авторизации
+         */
         const {email, password} = req.body;
+        /**
+         * ищем пользователя из бд по email
+         * @type {*}
+         */
         const findUserFromBD = await UserByModel.findOne({email: email});//поиск пользователя по почте
         if (!findUserFromBD) {
             return res.status(400).json({message: "Пользователь не был найден", code: 0})
         }
+        /**
+         * метод compareSync() возвращает пароль, если пароли совпадают
+         */
         const isPassValid = bcrypt.compareSync(password, findUserFromBD.password);
         if (!isPassValid) {
             return res.status(400).json({message: "Вы ввели неправильный пароль"})
         }
-        const token = getToken(findUserFromBD._id, findUserFromBD.roles)
+        const token = getToken(findUserFromBD._id, findUserFromBD.role)
         return res.json({
             token,
             findUserFromBD,
-            message: "Вы успешно авторизовались"
+            message: "Вы успешно авторизовались",
+            statusCode: 1,
         })
     }
 
     async auth(req, res) {
         try{
-            const userFromBD = await UserByModel.findOne({_id: req.userByToken.userID}); // ищем пользователя в бд из миддлвейр
+            /**
+             * получаем пользователя из бд с данными от middleware
+             * @type {*}
+             */
+            const userFromBD = await UserByModel.findOne({_id: req.userByToken.userID});
+            /**
+             * генерируем токен используя метод getToken()
+             * @type {*}
+             */
             const token = getToken(userFromBD._id, userFromBD.roles);
             return res.json({
                 token,

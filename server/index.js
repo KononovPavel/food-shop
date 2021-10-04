@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 const authRouter = require('../server/routes/authRouter')
+const productRouter = require('../server/routes/productRouter')
 
 
 //создаем приложение
@@ -11,8 +12,8 @@ const app = express();
 app.use(express.json());
 
 //определяем маршрут для авторизации пользователя
-app.use('/api', authRouter)
-
+app.use('/api/auth', authRouter)
+app.use('/api/products', productRouter)
 //определяем порт
 const PORT = config.get('PORT') || 5000;
 

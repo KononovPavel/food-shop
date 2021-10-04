@@ -14,6 +14,6 @@ router.post('/login', authController.login)
 //авторизация постоянная - чтобы пользователь оставался авторизован
 router.get('/auth',authMiddleware ,authController.auth)
 
-//возвращаем наш роутер
+
 module.exports = router;
 
