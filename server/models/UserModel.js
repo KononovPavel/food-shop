@@ -22,7 +22,12 @@ const user = new Schema({
     //корзина заказов пользователя (не администратора)
     card: [{type: ObjectId, ref: "ORDER"}],
     //роли пользователя строка, так как одно поле которое стринг
-    role:{type:String, ref:'ROLE'},
+    role: {type: String, ref: 'ROLE'},
+    //Статус пользователя, забанить можно за то, что не заплатит за заказ например :
+    ban: {
+        status: {type: Boolean, default: false},
+        reason: {type: String, default: ''}
+    },
 })
 //создаем модель пользователя, используя метод model из mongoose
 //первый параметр, это то, как модель будет называться в бд, второй - наш объект
