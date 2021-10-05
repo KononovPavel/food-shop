@@ -5,7 +5,7 @@ const productRouter = require('../Controllers/productController')
 /**
  * Создание одного продукта
  */
-router.post('/create', productRouter.createProduct)
+router.post('/product', productRouter.createProduct)
 /**
  * Получение всех продуктов
  */
