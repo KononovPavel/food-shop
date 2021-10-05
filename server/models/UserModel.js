@@ -16,9 +16,9 @@ const user = new Schema({
         country: {type: String}
     },
     //массив заказов
-    orders: [{type: ObjectId, ref: "ORDER"}],
+    orders: [],
     //массив выполненых заказов
-    ordersComplete: [{type: ObjectId, ref: "ORDER"}],
+    ordersComplete: [],
     //корзина заказов пользователя (не администратора)
     card: [],
     //роли пользователя строка, так как одно поле которое стринг
