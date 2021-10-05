@@ -5,6 +5,7 @@ const authRouter = require('../server/routes/authRouter')
 const productRouter = require('../server/routes/productRouter')
 const userRouter = require('../server/routes/usersRouter')
 const cardRouter = require('../server/routes/cardRouter')
+const orderRouter = require('../server/routes/orderRouter')
 //создаем приложение
 const app = express();
 
@@ -17,8 +18,11 @@ app.use('/api', authRouter)
 app.use('/api', productRouter)
 // определяем маршрут для пользователей
 app.use('/api', userRouter)
-//Маршрут для корзины
-app.use('/api',cardRouter)
+//определяем маршрут для корзины
+app.use('/api', cardRouter)
+//определяем маршрут для заказа
+app.use('/api', orderRouter)
+
 //определяем порт
 const PORT = config.get('PORT') || 5000;
 

@@ -1,5 +1,5 @@
 const UserModel = require('../models/UserModel');
-
+const ProductModel = require('../models/productModel')
 /**
  * Класс описывает суть работы с корзиной пользователя, так как мы должны переходить от браузера в браузер и у нас все должно отображаться
  */
@@ -36,9 +36,9 @@ class cardController {
         if (!userFromDb) {
             return res.status(400).json({message: "Вы не авторизованы! ошибка из addProductToCard"})
         }
-        const products = req.body // массив продуктов;
-        if (!products) {
-            return res.status(400).json({message: "Продуктов не было добавлено", statusCode: 0})
+        const product = userFromDb.card.find(product => product._id === id)
+        if(!product) {
+            return res.status(400).json({message: "Продукт не был найден", statusCode: 0})
         }
         userFromDb.card = userFromDb.card.filter(product => product._id !== id) // фильтрую данные по id
         await userFromDb.save()
@@ -49,13 +49,6 @@ class cardController {
             cardLength: userFromDb.card.length
         })
     }
-
-    async productsByCard (req, res) {
-
-    }
-
-
-
 }
 
 module.exports = new cardController()
