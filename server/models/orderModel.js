@@ -1,7 +1,7 @@
 const {model, Schema, ObjectId} = require('mongoose')
 //это будет блок заказа
 const order = new Schema({
-    products: [{type: ObjectId, ref: "PRODUCT"}],
+    products: [],
     //дата заказа
     date: {type: Date, required: true},
     //владелец, с помощью которого можно будет перевести заказ на статус выполнен
