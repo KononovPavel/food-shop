@@ -90,8 +90,12 @@ class ProductController {
      */
     async deleteProduct(req,res) {
         const {id} = req.params
-        ProductByModel.findByIdAndDelete({_id:id});
-        res.status(200).json({message:`Продукт с id ${id} был удален`})
+        const product = await ProductByModel.findOne({_id : id})
+        if(!product){
+            return res.status(403).json({message:"Продукт уже был удален", statusCode: 0})
+        }
+        await ProductByModel.findByIdAndDelete({_id:id});
+        res.status(200).json({message:`Продукт с id ${id} был удален`, statusCode: 1})
     }
 }
 

@@ -42,17 +42,17 @@ class UserController {
      */
     async banUser(req, res) {
         const {reason, id} = req.body
-        if(!reason){
-            return res.json({message:"Введите причину блокировки!", statusCode: 0})
+        if (!reason) {
+            return res.json({message: "Введите причину блокировки!", statusCode: 0})
         }
         const user = await UserByModel.findOne({_id: id})
-        if(!user) {
-            return res.status(400).json({message:"Пользователь не был найден", statusCode:0})
+        if (!user) {
+            return res.status(400).json({message: "Пользователь не был найден", statusCode: 0})
         }
         user.ban.status = true;
         user.ban.reason = reason;
         await user.save();
-        return res.json({user, message:"Пользователь был заблокирован", statusCode: 1})
+        return res.json({user, message: "Пользователь был заблокирован", statusCode: 1})
     }
 
     /**
@@ -62,16 +62,18 @@ class UserController {
      * @returns {Promise<*>}
      */
     async razBanUser(req, res) {
-        const { id} = req.body
+        const {id} = req.body
         const user = await UserByModel.findOne({_id: id})
-        if(!user) {
-            return res.status(400).json({message:"Пользователь не был найден", statusCode:0})
+        if (!user) {
+            return res.status(400).json({message: "Пользователь не был найден", statusCode: 0})
         }
         user.ban.status = false;
         user.ban.reason = '';
         await user.save();
-        return res.json({user, message:"Пользователь был разблокирован", statusCode: 1})
+        return res.json({user, message: "Пользователь был разблокирован", statusCode: 1})
     }
+
+
 }
 
 module.exports = new UserController();
