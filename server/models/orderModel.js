@@ -9,7 +9,9 @@ const order = new Schema({
     // статус нашего заказа : Принят, в процессе, отправлен
     status: {type: String, default: "Заказ в обработке"},
     //варианты доставки : самовывоз, доставка со стоимостью в 2$, бесплатная доставка от 50$
-    delivery: {type:String, default: "Самовывоз"},
-    payment: {type:String, default: "Наличными"}
+    delivery: {type: String, default: "Самовывоз"},
+    payment: {type: String, default: "Наличными"},
+    //стоимость заказа
+    cost: {type: Number, default: 0}
 })
 module.exports = model("ORDER", order)

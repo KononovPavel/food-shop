@@ -16,33 +16,45 @@ class OrderController {
      * @returns {Promise<void>}
      */
     createOrder = async (req, res) => {
-        const {products, delivery, payment} = req.body
-        const user = await UserModel.findOne({_id: req.userByToken.userID})
-        if (!products) {
-            return res.status(400).json({message: "Без продуктов не буду ничего добавлять!", statusCode: 0})
+
+        try {
+            const {products, delivery, payment, cost} = req.body
+            let user = await UserModel.findOne({_id: req.userByToken.userID})
+            if (!products) {
+                return res.status(400).json({message: "Без продуктов не буду ничего добавлять!", statusCode: 0})
+            }
+            /**
+             * Создаю новый заказ
+             * @type {EnforceDocument<unknown, {}, {}>}
+             */
+            const order = new OrderModel({
+                products: products,
+                date: new Date(),
+                owner: user,
+                delivery: delivery,
+                payment: payment,
+                cost: cost
+            });
+            /**
+             * сохранение заказа в базе заказов
+             */
+            await order.save();
+            return res.json({message: "Заказ был добавлен!", order, statusCode: 1})
+        } catch (e) {
+            res.json({message: "Ошибка в catch", e})
         }
-        /**
-         * Создаю новый заказ
-         * @type {EnforceDocument<unknown, {}, {}>}
-         */
-        const order = new OrderModel({
-            products: products,
-            date: new Date(),
-            owner: {...user},
-            delivery: delivery,
-            payment: payment
-        });
-        /**
-         * для администратора я делаю так, чтобы были видны все заказы вообще
-         */
-        await order.save();
-        /**
-         * Для пользователя, я добавляю в массив заказов еще один заказ
-         * @type {*[]}
-         */
-        user.orders = [order, ...user.orders]
-        await user.save();
-        return res.json({message:"Ваш заказ был добавлен", user, statusCode: 1, length: user.orders.length})
+    }
+
+    getOrders = async (req, res) => {
+        try {
+            const orders = await OrderModel.find();
+            if (!orders.length) {
+                return res.status(400).json({message: "Заказов не найдено", statusCode: 0})
+            }
+            return res.status(200).json({message: "Все заказы : ", orders, totalCount: orders.length, statusCode: 1})
+        } catch (e) {
+            res.json({message: "Ошибка в catch", e})
+        }
     }
 }
 
