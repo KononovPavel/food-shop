@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.scss';
-import AppRouter from "./routes/appRouter";
+import Login_registr_main_router from "./routes/login_registr_main_router";
 import 'antd/dist/antd.css'
 function App() {
     return (
-            <AppRouter/>
+            <Login_registr_main_router/>
     );
 }
 

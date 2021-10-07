@@ -1,3 +1,7 @@
+/**
+ * Данные для формы, которые будут в будущем, пока что просто локальный стейт
+ */
+
 export interface registrationForm {
     firstName:string,
     lastName:string,
