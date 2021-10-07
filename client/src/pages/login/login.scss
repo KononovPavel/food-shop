@@ -1,0 +1,57 @@
+@import "src/styles/mixins";
+
+.form-container {
+  @include backGround(#ebefe6);
+  @include dflex(100vw, 100vh, center, center);
+}
+
+.login {
+
+  background: #FFF;
+  min-width: 360px;
+  max-width: 500px;
+  max-height: 600px;
+  padding: 30px;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 1px 4px 6px 0 rgba(29, 33, 36, 0.08);
+  border-radius: 4px;
+}
+
+.login-btn {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  left: 40%;
+  width: 100px;
+}
+
+.label_login {
+  text-align: left;
+  padding: 2px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  @include typography(16px, 'Roboto', 400, 30px)
+}
+
+.login_title {
+  text-align: center;
+  @include typography(24px, "Roboto", 500, 40px)
+}
+
+.login_forgot {
+  @include typography(14px, "Montserrat", 300, 20px);
+}
+
+.login-input {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  height: 40px;
+}
+
+.login-singUP {
+  color: #4a65f8;
+  @include typography(14px, "Montserrat", 500, 20px);
+  cursor: pointer;
+}

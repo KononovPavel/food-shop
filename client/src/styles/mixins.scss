@@ -1,0 +1,16 @@
+@mixin dflex($width, $height,$align, $justify){
+  display: flex;
+  width: $width;
+  height: $height;
+  align-items:$align;
+  justify-content: $justify;
+}
+@mixin typography($size,$family,$weight,$lineHeight) {
+  font-family: $family, sans-serif;
+  font-size: $size;
+  line-height: $lineHeight;
+  font-weight: $weight;
+}
+@mixin backGround($background) {
+  background: $background;
+}
