@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
-
-import './login.scss'
+/**
+ * Компонента, отвечающая за логин, с перенаправлением на регистрацию
+ * password, email - useState()
+ */
+import '../../styles/form-style.scss'
 import {Button, Input} from "antd";
 import {useHistory} from "react-router-dom";
 
@@ -21,32 +24,31 @@ const Login = () => {
     return (
 
         <div className={'form-container'}>
-            <div className={"login"}>
+            <div className={"form"}>
 
-                <div className={"login_title"}>
+                <div className={"form__title"}>
                     Вход
                 </div>
-                <label aria-required className={"label_login"}>Email</label>
-                <Input className={"login-input"} value={email} onChange={e => setEmail(e.currentTarget.value)}
+                <label aria-required className={"form__label"}>Email</label>
+                <Input className={"form__input"} value={email} onChange={e => setEmail(e.currentTarget.value)}
                        placeholder={"Введите email"}/>
 
-                <label aria-required className={"label_login"}>Password</label>
-                <Input.Password className={"login-input"} value={password}
+                <label aria-required className={"form__label"}>Password</label>
+                <Input.Password className={"form__input"} value={password}
                                 onChange={e => setPassword(e.currentTarget.value)}
                                 placeholder={"Введите пароль"}/>
 
-                <div className={"login_forgot"}>
+                <div className={"form__forgot"}>
                     Нет аккаунта? <span onClick={() => history.push("/registration")}
-                                        className={"login-singUP"}>Зарегистрироваться</span>
+                                        className={"form__singUP"}>Зарегистрироваться</span>
                 </div>
-                <Button
-                    onClick={() => login()}
-                    type={"primary"}
-                    className={"login-btn"}
-                    disabled={!email || !password}
-                >
-                    Войти
-                </Button>
+                <div className={"form__btn"}>
+                    <Button
+                        onClick={() => login()}
+                        type={"primary"}
+                        disabled={!email || !password}>Войти</Button>
+                </div>
+
             </div>
         </div>
     );

@@ -1,3 +1,6 @@
+/**
+  миксины для использования в любой точке приложения
+ */
 @mixin dflex($width, $height,$align, $justify){
   display: flex;
   width: $width;
