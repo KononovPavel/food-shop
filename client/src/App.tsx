@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.scss';
-
+import AppRouter from "./routes/appRouter";
+import 'antd/dist/antd.css'
 function App() {
-  return (
-    <div className={"testClass"}>
-        <header>hahah</header>
-    </div>
-  );
+    return (
+            <AppRouter/>
+    );
 }
 
 export default App;
