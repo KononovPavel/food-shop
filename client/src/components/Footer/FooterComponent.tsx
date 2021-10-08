@@ -8,7 +8,7 @@ import {Footer} from "antd/lib/layout/layout";
 const FooterComponent = () => {
     return (
         <div>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center' }}>Made in Belarus ©2021 Created by Kononov Pavel</Footer>
 
         </div>
     );

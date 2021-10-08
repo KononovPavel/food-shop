@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Login from "../pages/login/Login";
 import Registration from "../pages/registration/Registration";
 import Main from "../pages/main/Main";
@@ -14,9 +14,11 @@ const Login_registr_main_router = () => {
     const isAuth = false
     return (
         <>
-            <Route exact={true} path={'/login'} render={() => <Login/>}/>
-            <Route exact={true} path={'/registration'} render={() => <Registration/>}/>
-            <Route exact={true} path={"/"} render={() => <Main/>}/>
+            <Switch>
+                <Route  path={'/login'} render={() => <Login/>}/>
+                <Route  path={'/registration'} render={() => <Registration/>}/>
+                <Route  path={"/"} render={() => <Main/>}/>
+            </Switch>
         </>
     );
 };

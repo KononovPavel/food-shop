@@ -1,26 +1,28 @@
 import React from 'react';
-import {Header} from "antd/es/layout/layout";
-import {Menu} from "antd";
+import './header.scss'
+import icon from '../../assets/food_.jpg'
 import { NavLink } from 'react-router-dom';
-
 /**
  * Заголовок для приложения, я решил, что он будет везде, кроме логина и регистрации
  * его данные будут меняться, в зависимости от страницы а так же состояния пользователя
  * @constructor
  */
 const HeaderComponent = () => {
-    const isAuth = true;
+    const isAuth = false;
     return (
-        <div>
-            <Header style={{ position: 'fixed', zIndex: 1, width: '100%' , marginBottom:'100px'}}>
-                <div className="logo" />
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-                    <NavLink exact={true} to={'/main'}><Menu.Item key="1">Главная</Menu.Item></NavLink>
-                    <Menu.Item key="2">{isAuth ? "Профиль" : "Войти"}</Menu.Item>
-                    <Menu.Item disabled={!isAuth} key="3">Корзина</Menu.Item>
-                    <Menu.Item key="4">Мои заказы</Menu.Item>
-                </Menu>
-            </Header>
+        <div className={"header"}>
+          <NavLink to={'/main'}> <img src={icon} alt="" width={50} height={50}/> </NavLink>
+            <div className={'header__navigation'}>
+                {
+                    !isAuth && <>
+                        <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/login'}>Войти</NavLink>
+                        <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/registration'}>Регистрация</NavLink></>
+                }
+                {
+                    isAuth &&  <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/logout'}>Выйти</NavLink>
+                }
+
+            </div>
         </div>
     );
 };

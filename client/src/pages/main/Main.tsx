@@ -7,7 +7,7 @@ const Main = () => {
     return (
         <div className={"main"}>
             <HeaderComponent/>
-            <ContentRouter/>
+                <ContentRouter/>
             <FooterComponent/>
         </div>
     );
