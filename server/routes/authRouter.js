@@ -1,4 +1,4 @@
-//для передачи данных по методам нужно создать объект класса Router
+//для передачи данных по методам нужно создать объект класса Login_registr_main_router
 const Router = require('express');
 const router = new Router();
 const authController = require('../Controllers/authController');

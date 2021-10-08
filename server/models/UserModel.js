@@ -1,4 +1,4 @@
-const {model, Schema, ObjectId} = require('mongoose')
+const {model, Schema, Types} = require('mongoose')
 
 const user = new Schema({
     //имя пользователя обязательно
@@ -15,12 +15,10 @@ const user = new Schema({
         city: {type: String},
         country: {type: String}
     },
-    //массив заказов
-    orders: [],
-    //массив выполненых заказов
-    ordersComplete: [],
-    //корзина заказов пользователя (не администратора)
-    card: [],
+    // корзина
+    card: [{type:Types.ObjectId, ref:"PRODUCT"}],
+    //заказы
+    orders:[{type:Types.ObjectId, ref:"ORDER"}],
     //роли пользователя строка, так как одно поле которое стринг
     role: {type: String, ref: 'ROLE'},
     //Статус пользователя, забанить можно за то, что не заплатит за заказ например :

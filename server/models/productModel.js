@@ -1,8 +1,8 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, Types} = require('mongoose')
 //модель продукта, который будет у нас в магазине
 const product = new Schema({
     name: {type: String, required: true, unique: true},
-    category: {type: String, required: true},
+    category: {type: Types.ObjectId, ref: "Category"},
     description: {type: String},
     image: {type: String, required: true},
     images: [{type: String}],
