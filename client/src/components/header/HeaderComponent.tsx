@@ -11,7 +11,12 @@ const HeaderComponent = () => {
     const isAuth = false;
     return (
         <div className={"header"}>
-          <NavLink to={'/main'}> <img src={icon} alt="" width={50} height={50}/> </NavLink>
+            <div className={"header__link"}>
+                <NavLink to={'/main'}> <img src={icon} alt="" width={50} height={50}/> </NavLink>
+                <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/product'}>Продукты</NavLink>
+
+            </div>
+
             <div className={'header__navigation'}>
                 {
                     !isAuth && <>
