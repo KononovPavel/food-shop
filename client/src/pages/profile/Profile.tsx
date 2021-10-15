@@ -3,6 +3,8 @@ import {UserModel} from "../../redux/models/userModel";
 import './profile.scss'
 import {Button, Input} from "antd";
 import Preloader from "../../components/preloader/Preloader";
+import OrderItem from "../../components/ordersList/orderItem/OrderItem";
+import {OrderModel} from "../../redux/models/orderModel";
 
 /**
  * Будет отображаться информация  о пользователе, так же сделаю последние 5 заказов
@@ -29,11 +31,29 @@ const user: UserModel = {
     password: "К сожалению, вы его не увидите",
 }
 
+const order: OrderModel = {
+    date: "10.10.2021",
+    cost: 200,
+    status: "Выполнен",
+    delivery: "Самовывоз",
+    owner: user,
+    payment: "Безналичный",
+    products: []
+}
+const ordersFromServer: OrderModel[] = [
+    order,
+    {...order, date: '20.10.2021'},
+]
+
 const Profile = () => {
     const [userModel, setUser] = useState<UserModel>({} as UserModel)
+    const [orders, setOrders] = useState<OrderModel[]>([])
     const [active, setActive] = useState<boolean>(false)
     useEffect(() => {
-        setUser(user);
+        setTimeout(() => {
+            setUser(user);
+            setOrders(ordersFromServer)
+        }, 2000);
     }, [])
     return (
         <div className={"profile"}>
@@ -108,9 +128,16 @@ const Profile = () => {
                 }
             </div>
             <div className={"profile-right"}>
-                <p>Прошлые заказы</p>
-                <div className={"profile-orders"}>
-                </div>
+                {orders.length
+                    ? <><p>Прошлые заказы</p>
+                        <div className={"profile-orders"}>
+                            {
+                                orders.map(order => <OrderItem key={order.date} order={order}/>)
+                            }
+                        </div>
+                    </>
+                    : <Preloader/>}
+
             </div>
         </div>
     );

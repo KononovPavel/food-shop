@@ -3,7 +3,7 @@ import {UserModel} from "./userModel";
 
 export interface OrderModel {
     products: Array<ProductModel>,
-    date:Date,
+    date:string,
     owner: UserModel,
     status:string,
     delivery:string,
