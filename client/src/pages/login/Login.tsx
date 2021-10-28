@@ -6,6 +6,9 @@ import React, {useState} from 'react';
 import '../../styles/form-style.scss'
 import {Button, Input} from "antd";
 import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {LoginForm} from "../../types/formData";
+import { login } from '../../redux/actions/AuthAction';
 
 
 const Login = () => {
@@ -13,12 +16,19 @@ const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('')
     const history = useHistory();
-    const login = () => {
-        const userData = {
-            email,
-            password
-        }
-        console.log(userData)
+    const dispatch = useDispatch()
+    const loginHandler = () => {
+       try {
+           const userData:LoginForm = {
+               email,
+               password
+           }
+           dispatch(login(userData))
+           history.push('')
+       }
+       catch (e) {
+           alert(e)
+       }
     }
 
     return (
@@ -44,7 +54,7 @@ const Login = () => {
                 </div>
                 <div className={"form__btn"}>
                     <Button
-                        onClick={() => login()}
+                        onClick={() => loginHandler()}
                         type={"primary"}
                         disabled={!email || !password}>Войти</Button>
                 </div>

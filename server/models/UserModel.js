@@ -1,4 +1,4 @@
-const {model, Schema, Types} = require('mongoose')
+const {model, Schema, Types, ObjectId} = require('mongoose')
 
 const user = new Schema({
     //имя пользователя обязательно
@@ -16,7 +16,7 @@ const user = new Schema({
         country: {type: String}
     },
     // корзина
-    card: [{type:Types.ObjectId, ref:"PRODUCT"}],
+    card: [{type:ObjectId, ref:"PRODUCT"}],
     //заказы
     orders:[{type:Types.ObjectId, ref:"ORDER"}],
     //роли пользователя строка, так как одно поле которое стринг

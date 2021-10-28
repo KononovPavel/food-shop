@@ -1,13 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
+const cors = require('cors')
 const authRouter = require('../server/routes/authRouter')
 const productRouter = require('../server/routes/productRouter')
 const userRouter = require('../server/routes/usersRouter')
 const cardRouter = require('../server/routes/cardRouter')
 const orderRouter = require('../server/routes/orderRouter')
+const categoryRouter = require('../server/routes/categoryRouter')
 //создаем приложение
 const app = express();
+app.use(cors());
 
 //даем возможность серверу читать json формат
 app.use(express.json());
@@ -22,7 +25,8 @@ app.use('/api', userRouter)
 app.use('/api', cardRouter)
 //определяем маршрут для заказа
 app.use('/api', orderRouter)
-
+//определяем маршрут для категорий
+app.use('/api', categoryRouter)
 //определяем порт
 const PORT = config.get('PORT') || 5000;
 

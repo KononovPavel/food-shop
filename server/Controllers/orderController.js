@@ -30,7 +30,7 @@ class OrderController {
             const order = new OrderModel({
                 products: products,
                 date: new Date(),
-                owner: user,
+                owner: user._id,
                 delivery: delivery,
                 payment: payment,
                 cost: cost
@@ -56,7 +56,23 @@ class OrderController {
             res.json({message: "Ошибка в catch", e})
         }
     }
+
+    getUserOrders = async (req, res) => {
+        try {
+            const id = '615c04aaa80eaabfa80dfd0e'
+            const orders = await OrderModel.find({owner: id})
+            // if (!user) {
+            //     return res.json({message: "Пользователь не был найден"})
+            // }
+            if (!orders) {
+                return res.json({message: "Заказы не были найдены"})
+            }
+            return res.json({message: "Ваши заказы", orders, statusCode: 1, totalCount: orders.length})
+        } catch (e) {
+            res.status(400).json({message: "Ошибка в catch", e: e})
+        }
+    }
 }
 
-module.exports = new OrderController();
+module.exports = new  OrderController();
 

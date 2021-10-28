@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {Button, Input} from "antd";
 import '../../styles/form-style.scss'
 import {useHistory} from "react-router-dom";
-
+import {registration} from "../../redux/actions/AuthAction";
+import {registrationForm} from "../../types/formData";
 /**
  * Компонента, отвечающая за регистрацию пользователя
  * email, password, lastName,firstName - useState()
@@ -14,14 +15,15 @@ const Registration = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const history = useHistory();
-    const onClickHandler = () => {
-        const user = {
+    const onClickHandler = async () => {
+        const user: registrationForm = {
             lastName,
             email,
             password,
             firstName
         }
-        console.log(user)
+        await registration(user);
+
     }
     return (
         <div className={"form-container"}>
@@ -30,20 +32,25 @@ const Registration = () => {
                     Регистрация
                 </div>
                 <label className={"form__label"}>Имя</label>
-                <Input value={firstName} onChange={e => setFirstName(e.currentTarget.value)} placeholder={"Введите ваше имя"} className={"form__input"}/>
+                <Input value={firstName} onChange={e => setFirstName(e.currentTarget.value)}
+                       placeholder={"Введите ваше имя"} className={"form__input"}/>
                 <label className={"form__label"}>Фамилия</label>
-                <Input value={lastName} onChange={e => setLastName(e.currentTarget.value)} placeholder={"Введите вашу фамилию"} className={"form__input"}/>
+                <Input value={lastName} onChange={e => setLastName(e.currentTarget.value)}
+                       placeholder={"Введите вашу фамилию"} className={"form__input"}/>
                 <label className={"form__label"}>Email</label>
-                <Input value={email} onChange={e => setEmail(e.currentTarget.value)} placeholder={"Введите ваш email"} className={"form__input"}/>
+                <Input value={email} onChange={e => setEmail(e.currentTarget.value)} placeholder={"Введите ваш email"}
+                       className={"form__input"}/>
                 <label className={"form__label"}>Пароль</label>
-                <Input value={password} onChange={e => setPassword(e.currentTarget.value)} placeholder={"Введите ваш пароль"} className={"form__input"}/>
+                <Input value={password} onChange={e => setPassword(e.currentTarget.value)}
+                       placeholder={"Введите ваш пароль"} className={"form__input"}/>
                 <div className={"form__forgot"}>
                     Уже есть аккаунт? <span onClick={() => history.push("/login")}
-                                        className={"form__singUP"}>Войти</span>
+                                            className={"form__singUP"}>Войти</span>
                 </div>
 
                 <div className={"form__btn"}>
-                    <Button onClick={()=>onClickHandler()} disabled={!password || !email} type={"primary"}>Зарегистрироваться</Button>
+                    <Button onClick={() => onClickHandler()} disabled={!password || !email}
+                            type={"primary"}>Зарегистрироваться</Button>
                 </div>
 
             </form>

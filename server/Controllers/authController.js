@@ -40,7 +40,7 @@ class AuthController {
             const candidate = await UserByModel.findOne({email})
             //поиск на совпадение
             if (candidate) {
-                return res.status(400).json({message: "Пользователь с такой почтой уже зарегистрирован"})
+                return res.status(400).json({message: "Пользователь с такой почтой уже зарегистрирован", statusCode:0})
             }
             const hashPassword = bcrypt.hashSync(password, 5); // хеширование пароля
             const userRole = await RoleByModel.findOne({value: "USER"})

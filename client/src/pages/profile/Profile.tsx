@@ -28,7 +28,6 @@ const user: UserModel = {
         country: "Belarus",
         street: "Odincova",
     },
-    password: "К сожалению, вы его не увидите",
 }
 
 const order: OrderModel = {
