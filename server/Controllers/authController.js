@@ -44,7 +44,7 @@ class AuthController {
             }
             const hashPassword = bcrypt.hashSync(password, 5); // хеширование пароля
             const userRole = await RoleByModel.findOne({value: "USER"})
-            const user = new UserByModel({firstName:firstName, lastName:lastName, email:email, password: hashPassword , address:address ,role:userRole.value})
+            const user = new UserByModel({firstName:firstName, lastName:lastName, email:email, password: hashPassword , address:address? address : {} ,role:userRole.value})
             await user.save();
             return res.json({message: "Вы успешно зарегистрировались", statusCode: 1})
         } catch (e) {

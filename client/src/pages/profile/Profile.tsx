@@ -5,6 +5,8 @@ import {Button, Input} from "antd";
 import Preloader from "../../components/preloader/Preloader";
 import OrderItem from "../../components/ordersList/orderItem/OrderItem";
 import {OrderModel} from "../../redux/models/orderModel";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/state";
 
 /**
  * Будет отображаться информация  о пользователе, так же сделаю последние 5 заказов
@@ -14,54 +16,29 @@ import {OrderModel} from "../../redux/models/orderModel";
  * @constructor
  */
 
-const user: UserModel = {
-    firstName: "Pavel",
-    lastName: "Kononov",
-    role: "User",
-    email: "test@test.com",
-    ban: {
-        reason: "",
-        status: false
-    },
-    address: {
-        city: "Minsk",
-        country: "Belarus",
-        street: "Odincova",
-    },
-}
 
-const order: OrderModel = {
-    date: "10.10.2021",
-    cost: 200,
-    status: "Выполнен",
-    delivery: "Самовывоз",
-    owner: user,
-    payment: "Безналичный",
-    products: []
-}
-const ordersFromServer: OrderModel[] = [
-    order,
-    {...order, date: '20.10.2021'},
-]
+
+
 
 const Profile = () => {
-    const [userModel, setUser] = useState<UserModel>({} as UserModel)
+    const user = useSelector<AppStateType, UserModel>(state => state.auth.user)
+    const [userModel, setUser] = useState<UserModel>(user)
     const [orders, setOrders] = useState<OrderModel[]>([])
     const [active, setActive] = useState<boolean>(false)
     useEffect(() => {
-        setTimeout(() => {
-            setUser(user);
-            setOrders(ordersFromServer)
-        }, 2000);
+        if(user !== userModel) {
+            setUser(user)
+        }
+        console.log(user)
     }, [])
+
     return (
         <div className={"profile"}>
             <div className={"profile-left"}>
                 <div className={"profile-imageBlock"}>
                     <div className={"profile-image"}/>
                 </div>
-                {
-                    Object.keys(userModel).length ?
+                {      Object.keys(userModel).length ?
                         <div className={"profile-info"}>
                             <div className={"profile-input-label"}>
                                 <label className={"profile-label"}>Имя</label>
@@ -88,29 +65,32 @@ const Profile = () => {
 
                             <div className={"profile-input-label"}>
                                 <label className={"profile-label"}>Город</label>
-                                <Input className={"profile-input"} onChange={e => setUser({
+                                <Input className={"profile-input"}  value={userModel.address.city.length ? userModel.address.city : ""} placeholder={"Город"}/>
+                            </div>
+                            {/*
+                            onChange={e => setUser({
                                     ...userModel,
                                     address: {...userModel.address, city: e.currentTarget.value}
-                                })} value={userModel.address.city}/>
-                            </div>
-
+                                })}*/}
 
                             <div className={"profile-input-label"}>
                                 <label className={"profile-label"}>Улица</label>
-                                <Input className={"profile-input"} onChange={e => setUser({
+                                <Input className={"profile-input"}  value={userModel.address.street.length? userModel.address.street : ""} placeholder={"Улица"}/>
+                            </div>
+                            {/*onChange={e => setUser({
                                     ...userModel,
                                     address: {...userModel.address, street: e.currentTarget.value}
-                                })} value={userModel.address.street}/>
-                            </div>
-
+                                })}*/}
 
                             <div className={"profile-input-label"}>
                                 <label className={"profile-label"}>Страна</label>
-                                <Input className={"profile-input"} onChange={e => setUser({
+                                <Input className={"profile-input"} value={userModel.address.country.length? userModel.address.country : ""} placeholder={"Страна"}/>
+                            </div>
+
+                            {/*onChange={e => setUser({
                                     ...userModel,
                                     address: {...userModel.address, country: e.currentTarget.value}
-                                })} value={userModel.address.country}/>
-                            </div>
+                                })}*/}
                             <div className={"profile-btn"}>
                                 {active
                                     ? <Button onClick={() => {
@@ -123,7 +103,7 @@ const Profile = () => {
                             </div>
 
                         </div>
-                        : <Preloader/>
+                    :<Preloader/>
                 }
             </div>
             <div className={"profile-right"}>

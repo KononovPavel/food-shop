@@ -1,4 +1,4 @@
-import {UserModel} from "../models/userModel";
+import {address, ban, UserModel} from "../models/userModel";
 
 interface InitStateType {
     isAuth: boolean,
@@ -9,8 +9,16 @@ interface InitStateType {
 }
 
 let defaultState: InitStateType = {
-    isAuth: false,
-    user: {} as UserModel,
+    isAuth: true,
+    user: {
+        _id:'',
+        ban:{} as ban,
+        address:{} as address,
+        email:'',
+        lastName:'',
+        firstName:'',
+        role:'',
+    } as UserModel,
     authError: false,
     Message: "",
     successRegistration:false

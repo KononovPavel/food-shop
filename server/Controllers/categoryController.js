@@ -7,24 +7,31 @@ const categoryModel = require('../models/categoryModel');
 class CategoryController {
     createCategory = async (req, res) => {
         try {
-            const {category, products} = req.body
+            const {category, photo} = req.body
             const categoryCandidate = await categoryModel.findOne({value: category})
             if (categoryCandidate) {
                 return res.json({message: "Такая категория уже есть, назовите по другому"})
             }
             const newCategory = await new categoryModel({
                 value: category,
-                products: products ? products : []
+                photo:photo
             })
             await newCategory.save()
             return res.json({message: "Категория была создана", newCategory, statusCode: 1})
         } catch (e) {
-            res.json({message: "ошибка в catch"})
+           return res.json({message: "ошибка в catch"})
         }
     }
 
     deleteCategory = async (req, res) => {
+        const {id} = req.params.id
+        await categoryModel.findByIdAndDelete({_id:id});
+        res.json({message:"Категория была удалена", statusCode:1})
+    }
 
+    getAllCategories = async (req,res) => {
+        const categories = await categoryModel.find();
+        return res.json({categories});
     }
 }
 
