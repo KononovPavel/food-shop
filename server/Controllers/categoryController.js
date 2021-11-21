@@ -1,4 +1,3 @@
-const productModel = require('../models/productModel');
 const categoryModel = require('../models/categoryModel');
 
 /**
@@ -8,12 +7,12 @@ class CategoryController {
     createCategory = async (req, res) => {
         try {
             const {category, photo} = req.body
-            const categoryCandidate = await categoryModel.findOne({value: category})
+            const categoryCandidate = await categoryModel.findOne({link: category})
             if (categoryCandidate) {
                 return res.json({message: "Такая категория уже есть, назовите по другому"})
             }
             const newCategory = await new categoryModel({
-                value: category,
+                link: category,
                 photo:photo
             })
             await newCategory.save()

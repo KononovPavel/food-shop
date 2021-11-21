@@ -1,0 +1,29 @@
+.category {
+ width: 350px;
+  height: 300px;
+  padding: 25px;
+  &_block {
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    color: #30434a;
+  }
+  &_block:hover {
+    opacity: 1;
+  }
+}
+.categoryItem {
+  width: 250px;
+  height: 150px;
+  margin-left: 50px;
+  margin-top: 20px;
+
+}

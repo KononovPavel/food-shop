@@ -1,4 +1,4 @@
 export interface categoryModel {
-    value:string,
+    link:string,
     photo:string
 }

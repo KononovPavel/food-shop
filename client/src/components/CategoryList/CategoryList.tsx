@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './category.scss'
 import CategoryItem from "./CategoryItem/CategoryItem";
+import {categoryModel} from "../../redux/models/categoryModel";
+import axios from "axios";
+import {CategoryURL} from "../../URLS/URL";
 
 const CategoryList = () => {
-    const Categories: string[] = ["Snack", "Горячие блюда", "Суши", "Закуски"]
+    const [categories, setCategories] = useState<categoryModel[]>([]);
+    useEffect(() => {
+        axios.get(`${CategoryURL}`).then(
+            (res)=> {
+                setCategories(res.data.categories);
+            }
+        )
+    }, [])
     return (
-        <div style={{display:"flex"}}>
+        <div className={"categoryList"}>
             {
-                Categories.map((category: string, index: number) => <div key={index}><CategoryItem category={category}/>
+                categories.length && categories.map((category: categoryModel, index: number) => <div key={index}>
+                    <CategoryItem category={category}/>
                 </div>)
             }
         </div>
