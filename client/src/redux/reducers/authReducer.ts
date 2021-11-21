@@ -65,7 +65,7 @@ export const AuthReducer = (state: InitStateType = defaultState, action: ActionT
         }
     }
 }
-export const setUser = (user: UserModel): setUser => ({type: "SET_USER", payload: user})
+export const setUserAC = (user: UserModel): setUser => ({type: "SET_USER", payload: user})
 export const logout = (): logout => ({type: "LOGOUT"})
 export const setMessage = (message: string): setMessage => ({type: "SET_MESSAGE", payload: message})
 

@@ -1,7 +1,7 @@
 import {LoginForm, registrationForm} from "../../types/formData";
 import axios from "axios";
 import {Dispatch} from "redux";
-import {setUser} from "../reducers/authReducer";
+import {setUserAC} from "../reducers/authReducer";
 import {AuthURL} from "../../URLS/URL";
 
 
@@ -20,7 +20,7 @@ export const login = (value: LoginForm) => {
         try {
             const response = await axios.post(`${AuthURL}/login`, value).then(res => res)
             const {password, ...user} = response.data.findUserFromBD
-            dispatch(setUser(user))
+            dispatch(setUserAC(user))
             localStorage.setItem("token", response.data.token)
         } catch (e: any) {
             alert(e.response.data.message)
@@ -32,7 +32,7 @@ export const auth = () => {
         try {
             const response = await axios.get(`${AuthURL}/auth`, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}).then(res => res)
             const {password, ...user} = response.data.userFromBD
-            dispatch(setUser(user))
+            dispatch(setUserAC(user))
         } catch (e: any) {
            //console.log(e.response.data.message)
         }

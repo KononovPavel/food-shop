@@ -3,7 +3,12 @@
   cursor: pointer;
   padding: 10px;
   min-height: 30px;
+  color:black;
 }
 .userItem:hover {
   background: #e8edff;
+}
+.isBlocked {
+  background: #d93333;
+  opacity: 0.9;
 }

@@ -11,9 +11,9 @@ const user = new Schema({
     password: {type: String, required: true},
     //адрес пользователя не нужно спрашивать при регистрации, но вот создать отдельный блок с профилем нужно обязательно
     address: {
-        street: {type: String},
-        city: {type: String},
-        country: {type: String}
+        street: {type: String,default:""},
+        city: {type: String,default:""},
+        country: {type: String, default:""}
     },
     // корзина
     card: [{type:ObjectId, ref:"PRODUCT"}],

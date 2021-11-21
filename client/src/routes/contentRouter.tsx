@@ -16,14 +16,14 @@ const ContentRouter = () => {
 
     return (
         <Switch>
+
             <Route path={'/main'} render={() => <ProductList/>}/>
-            <Route path={'/profile'} render={() => <Profile/>}/>
+            <Route path={'/profile/:USERID'} render={() => <Profile/>}/>
             <Route path={'/category'} render={() => <CategoryList/>}/>
 
             {
                 role === "ADMIN"
                     ? <>
-
                         <Route exact={true} path={'/administration/userList'} render={() => <UserListAdmin/>}/>
                         <Route exact={true} path={'/administration/userList/:USERID'} render={() => <UserPageAdmin/>}/>
                         <Route exact={true} path={'/administration/productList'} render={() => <ProductListAdmin/>}/>

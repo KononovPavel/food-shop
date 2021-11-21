@@ -1,4 +1,5 @@
 const UserByModel = require('../models/UserModel');
+const {validationResult} = require("express-validator");
 
 /**
  * Этот класс описывает методы для работы с пользователями :
@@ -73,7 +74,21 @@ class UserController {
         return res.json({user, message: "Пользователь был разблокирован", statusCode: 1})
     }
 
-
+    async changeProfileData(req, res) {
+        const errors = validationResult(req); // ищем ошибки в запросе
+        if (!errors.isEmpty()) {
+            res.status(400).json({message: "Проблема с почтой"})
+        }
+        const {id, street, city, country, firstName, lastName, email} = req.body
+        const user = await UserByModel.findByIdAndUpdate(id, {
+            lastName, firstName, address: {
+                country,
+                city, street
+            }, email
+        })
+        await user.save();
+        return res.json({user})
+    }
 }
 
 module.exports = new UserController();

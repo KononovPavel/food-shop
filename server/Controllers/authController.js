@@ -40,11 +40,22 @@ class AuthController {
             const candidate = await UserByModel.findOne({email})
             //поиск на совпадение
             if (candidate) {
-                return res.status(400).json({message: "Пользователь с такой почтой уже зарегистрирован", statusCode:0})
+                return res.status(400).json({message: "Пользователь с такой почтой уже зарегистрирован", statusCode: 0})
             }
             const hashPassword = bcrypt.hashSync(password, 5); // хеширование пароля
             const userRole = await RoleByModel.findOne({value: "USER"})
-            const user = new UserByModel({firstName:firstName, lastName:lastName, email:email, password: hashPassword , address:address? address : {} ,role:userRole.value})
+            const user = new UserByModel({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: hashPassword,
+                address: {
+                    street:"",
+                    city:"",
+                    country:"",
+                },
+                role: userRole.value
+            })
             await user.save();
             return res.json({message: "Вы успешно зарегистрировались", statusCode: 1})
         } catch (e) {
@@ -82,8 +93,10 @@ class AuthController {
         })
     }
 
+
+
     async auth(req, res) {
-        try{
+        try {
             /**
              * получаем пользователя из бд с данными от middleware
              * @type {*}
@@ -97,15 +110,16 @@ class AuthController {
             return res.json({
                 token,
                 userFromBD,
-                statusCode:1
+                statusCode: 1
             })
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
-            res.json({message:"зашли в catch"})
+            res.json({message: "зашли в catch"})
         }
     }
+
 }
 
 //экспортируем объект класса authController
-module.exports = new AuthController();
+module
+    .exports = new AuthController();

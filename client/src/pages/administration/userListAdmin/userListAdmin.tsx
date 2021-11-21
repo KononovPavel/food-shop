@@ -17,6 +17,7 @@ const UserListAdmin = () => {
     return (
         <div style={{width: "100%", height: "100%"}}>
             <BackNavLink/>
+            <h3 className={"userListTitle"}>Страница пользователей</h3>
             <table className={"userListTable"}>
                 <thead>
                 <tr>

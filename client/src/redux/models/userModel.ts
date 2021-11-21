@@ -1,3 +1,5 @@
+import {OrderModel} from "./orderModel";
+
 export interface UserModel {
     _id:string
     firstName:string,
@@ -5,7 +7,8 @@ export interface UserModel {
     email:string,
     address:address,
     role:string,
-    ban:ban
+    ban:ban,
+    orders:OrderModel[],
 }
 
 export interface address {

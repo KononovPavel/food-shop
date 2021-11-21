@@ -6,12 +6,14 @@ import React, {useState} from 'react';
 import '../../styles/form-style.scss'
 import {Button, Input} from "antd";
 import {useHistory} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {LoginForm} from "../../types/formData";
 import { login } from '../../redux/actions/AuthAction';
+import {AppStateType} from "../../redux/state";
 
 
 const Login = () => {
+    const isBaned = useSelector<AppStateType,boolean>(state => state.auth.user.ban.status);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('')
@@ -56,10 +58,13 @@ const Login = () => {
                     <Button
                         onClick={() => loginHandler()}
                         type={"primary"}
-                        disabled={!email || !password}>Войти</Button>
+                        disabled={!email || !password || isBaned}>Войти</Button>
                 </div>
-
+                {
+                    isBaned && <span style={{fontSize:"30px", color:"red", marginLeft:'90px'}}>Вы были забанены!</span>
+                }
             </div>
+
         </div>
     );
 };

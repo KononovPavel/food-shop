@@ -8,7 +8,7 @@ type PropsType = {
 const UserItemAdmin:React.FC<PropsType> = ({user}) => {
     const history = useHistory();
     return (
-        <tr onClick={()=> history.push(`/administration/userList/${user._id}`)} className={"userItem"}>
+        <tr onClick={()=> history.push(`/administration/userList/${user._id}`)} className={user.ban && user.ban.status? "userItem isBlocked": "userItem"}>
             <td>{user._id}</td>
             <td>{user.firstName}</td>
             <td>{user.lastName}</td>

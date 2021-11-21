@@ -45,8 +45,8 @@ const HeaderComponent = () => {
                     isAuth &&
                     <>
 
-                        {/*<NavLink className={"header__nav"} activeClassName={"header__active"}*/}
-                        {/*         to={'/profile'}>Профиль</NavLink>*/}
+                        <NavLink className={"header__nav"} activeClassName={"header__active"}
+                                 to={'/profile/'+ _id}>Профиль</NavLink>
                         <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/logout'}
                                  onClick={() => dispatch(logout())}>Выйти</NavLink>
                     </>
