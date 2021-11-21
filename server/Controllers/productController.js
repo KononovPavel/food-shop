@@ -81,7 +81,7 @@ class ProductController {
      */
     async getProductByCategory(req, res) {
         const {category} = req.params
-        const products = await ProductByModel.findOne({category: category})
+        const products = await ProductByModel.find({category: category})
         if (!products) {
             return res.status(400).json({message: "Продукт не был найден category"})
         }

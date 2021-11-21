@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import {Button, Input} from "antd";
 import '../../styles/form-style.scss'
 import {useHistory} from "react-router-dom";
-import {registration} from "../../redux/actions/AuthAction";
 import {registrationForm} from "../../types/formData";
+import axios from "axios";
+import {AuthURL} from "../../URLS/URL";
+import {openNotificationWithIcon} from "../../components/Notification/Notification";
+
 /**
  * Компонента, отвечающая за регистрацию пользователя
  * email, password, lastName,firstName - useState()
@@ -22,7 +25,17 @@ const Registration = () => {
             password,
             firstName
         }
-        await registration(user);
+        await axios.post(`${AuthURL}/registration`, user).then(
+            () => {
+                openNotificationWithIcon("success", "Успех", "Поздравляем с успешной регистрацией")
+                history.push('/login')
+            }
+        )
+            .catch(
+                () => {
+                    openNotificationWithIcon("error", "Упс", "Ошибочка.....")
+                }
+            )
 
     }
     return (

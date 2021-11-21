@@ -8,29 +8,39 @@ import {Button, Input} from "antd";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {LoginForm} from "../../types/formData";
-import { login } from '../../redux/actions/AuthAction';
 import {AppStateType} from "../../redux/state";
+import axios from "axios";
+import {AuthURL} from "../../URLS/URL";
+import {setUserAC} from "../../redux/reducers/authReducer";
+import {openNotificationWithIcon} from "../../components/Notification/Notification";
 
 
 const Login = () => {
-    const isBaned = useSelector<AppStateType,boolean>(state => state.auth.user.ban.status);
+    const isBaned = useSelector<AppStateType, boolean>(state => state.auth.user.ban ? state.auth.user.ban.status : false);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('')
     const history = useHistory();
     const dispatch = useDispatch()
-    const loginHandler = () => {
-       try {
-           const userData:LoginForm = {
-               email,
-               password
-           }
-           dispatch(login(userData))
-           history.push('')
-       }
-       catch (e) {
-           alert(e)
-       }
+    const loginHandler = async () => {
+        const value: LoginForm = {
+            email:email, password:password
+        }
+        await axios.post(`${AuthURL}/login`, value).then(
+            (res) => {
+                const {password, ...user} = res.data.findUserFromBD
+                console.log(res)
+                dispatch(setUserAC(user))
+                localStorage.setItem("token", res.data.token)
+                openNotificationWithIcon("success", "Успех", "Вы успешно авторизовались")
+                history.push('/main');
+            }
+        )
+            .catch(
+                () => {
+                    openNotificationWithIcon("error", "Провал", "Ошибка при авторизации")
+                }
+            )
     }
 
     return (
@@ -61,7 +71,8 @@ const Login = () => {
                         disabled={!email || !password || isBaned}>Войти</Button>
                 </div>
                 {
-                    isBaned && <span style={{fontSize:"30px", color:"red", marginLeft:'90px'}}>Вы были забанены!</span>
+                    isBaned &&
+                    <span style={{fontSize: "30px", color: "red", marginLeft: '90px'}}>Вы были забанены!</span>
                 }
             </div>
 

@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './header.scss'
 import icon from '../../assets/food_.jpg'
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/state";
 import {logout} from "../../redux/reducers/authReducer";
@@ -14,11 +14,11 @@ import {logout} from "../../redux/reducers/authReducer";
 const HeaderComponent = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
     const role = useSelector<AppStateType, string>(state => state.auth.user.role)
-
     const _id = useSelector<AppStateType, string>(state => state.auth.user._id)
-    useEffect(() => {
 
-    }, [])
+    const logoutHandler = () => {
+        dispatch(logout())
+    }
 
     const dispatch = useDispatch()
     return (
@@ -26,8 +26,12 @@ const HeaderComponent = () => {
             <div className={"header__link"}>
                 <NavLink to={'/main'}> <img src={icon} alt="" width={50} height={50}/> </NavLink>
                 {
-                    isAuth && <NavLink className={"header__nav"} activeClassName={"header__active"}
-                                       to={'/category'}>Категории</NavLink>
+                    isAuth && <>
+                        <NavLink className={"header__nav"} activeClassName={"header__active"}
+                                 to={'/category'}>Категории</NavLink>
+                        <NavLink className={"header__nav"} activeClassName={"header__active"}
+                                 to={'/main'}>Главная</NavLink>
+                    </>
                 }
                 <span style={{marginLeft: "20px"}}> {_id}</span>
             </div>
@@ -46,14 +50,15 @@ const HeaderComponent = () => {
                     <>
 
                         <NavLink className={"header__nav"} activeClassName={"header__active"}
-                                 to={'/profile/'+ _id}>Профиль</NavLink>
-                        <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/logout'}
-                                 onClick={() => dispatch(logout())}>Выйти</NavLink>
+                                 to={'/profile/' + _id}>Профиль</NavLink>
+                        <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/login'}
+                                 onClick={() => logoutHandler()}>Выйти</NavLink>
                     </>
                 }
                 {
                     role === "ADMIN"
-                        ?  <NavLink className={"header__nav"} activeClassName={"header__active"} to={'/administration'}>Администрация</NavLink>
+                        ? <NavLink className={"header__nav"} activeClassName={"header__active"}
+                                   to={'/administration'}>Администрация</NavLink>
                         : ""
                 }
 
