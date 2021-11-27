@@ -16,9 +16,9 @@ const user = new Schema({
         country: {type: String, default:""}
     },
     // корзина
-    card: [{type:ObjectId, ref:"PRODUCT"}],
+    card: [],
     //заказы
-    orders:[{type:Types.ObjectId, ref:"ORDER"}],
+    orders:[],
     //роли пользователя строка, так как одно поле которое стринг
     role: {type: String, ref: 'ROLE'},
     //Статус пользователя, забанить можно за то, что не заплатит за заказ например :

@@ -23,7 +23,7 @@ class CategoryController {
     }
 
     deleteCategory = async (req, res) => {
-        const {id} = req.params.id
+        const {id} = req.params
         await categoryModel.findByIdAndDelete({_id:id});
         res.json({message:"Категория была удалена", statusCode:1})
     }

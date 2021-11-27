@@ -1,0 +1,24 @@
+.category {
+
+  &_blockAdmin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    color: #30434a;
+    cursor: pointer;
+  }
+}
+
+.categoryItemAdmin {
+  width: 250px;
+  height: 150px;
+  margin: 10px;
+}
+.category_blockAdmin:hover {
+  box-shadow: 0 4px 35px rgba(168, 172, 176, 0.4);
+}

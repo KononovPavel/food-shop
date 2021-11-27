@@ -16,9 +16,8 @@ const ContentRouter = () => {
 
     return (
         <Switch>
-
-            <Route path={'/main'} render={() => <ProductList/>}/>
             <Route path={'/profile/:USERID'} render={() => <Profile/>}/>
+            <Route path={'/category/:CATEGORY'} render={()=> <ProductList/>}/>
             <Route path={'/category'} render={() => <CategoryList/>}/>
 
             {
